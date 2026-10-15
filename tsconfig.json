@@ -11,6 +11,8 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "noEmit": true,
+    "baseUrl": ".",
+    "paths": {"@/*": ["src/*"]},
     "types": ["vitest/globals"]
   },
   "include": ["src", "tests"]

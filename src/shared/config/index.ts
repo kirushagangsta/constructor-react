@@ -1,0 +1,1 @@
+export {voidTags} from './tags';

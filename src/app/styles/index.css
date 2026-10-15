@@ -1,0 +1,119 @@
+/* Оформление редактора. Стили самой страницы сюда не попадают: они живут
+   в данных узлов и собираются в css отдельно (core/pageCss). */
+
+:root {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --line: #e3e6ea;
+  --text: #1c1f23;
+  --muted: #6b7280;
+  --accent: #2563eb;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 14px/1.45 ui-sans-serif, system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.editor { display: flex; flex-direction: column; height: 100vh; }
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.toolbar__brand { margin-right: 8px; }
+.toolbar__gap { width: 12px; }
+
+.button,
+.select {
+  font: inherit;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.button:disabled { opacity: .45; cursor: default; }
+
+.editor__body { display: flex; flex: 1; min-height: 0; }
+
+.panel {
+  width: 260px;
+  flex: none;
+  padding: 12px;
+  overflow: auto;
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+}
+
+.panel--right { border-right: 0; border-left: 1px solid var(--line); }
+
+/* дерево блоков */
+.block-tree, .block-tree__nested { list-style: none; margin: 0; padding: 0; }
+.block-tree__nested { padding-left: 12px; border-left: 1px solid var(--line); margin-left: 6px; }
+
+.block-tree__row {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  padding: 4px 6px;
+  border: 0;
+  border-radius: 5px;
+  background: none;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.block-tree__row:hover { background: #eef2f7; }
+.block-tree__row--active { background: var(--accent); color: #fff; }
+
+/* журнал правок */
+.log { list-style: none; margin: 16px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); font-size: 13px; }
+.log__item { padding: 2px 0; color: var(--muted); }
+.log__item--undone { opacity: .45; text-decoration: line-through; }
+.log__empty { margin: 16px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); color: var(--muted); font-style: italic; font-size: 13px; }
+
+/* холст */
+.canvas { flex: 1; overflow: auto; padding: 24px; display: flex; justify-content: center; }
+
+.canvas__sheet {
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .12);
+  min-height: 300px;
+}
+
+.canvas [data-node] { outline: 1px dashed transparent; outline-offset: -1px; }
+.canvas [data-node]:hover { outline-color: #b9c6da; }
+.canvas .is-selected { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* панель свойств */
+.panel__title { font-size: 13px; margin: 0 0 12px; color: var(--muted); font-weight: 600; }
+
+.field { display: block; margin-bottom: 10px; }
+.field__label { display: flex; gap: 6px; align-items: baseline; font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+.field__hint { font-size: 11px; font-style: normal; color: #9aa3af; }
+
+.field__input {
+  width: 100%;
+  font: inherit;
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.field__input:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
